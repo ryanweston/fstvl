@@ -1,6 +1,8 @@
-# fstvl
+# 🎉 fstvl
+Project take's user inputted UK postcodes alongside a radius(miles), converts to longitude and latitude with postcode.io, then using the Skiddle API, returns festivals that are within a radius to the location. Created as a test project to begin exploring VueJS.
 
-## Project setup
+
+# Project setup
 ```
 npm install
 ```
