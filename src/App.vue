@@ -35,37 +35,30 @@ export default {
     }
   },
   methods: {
-    convertPostcode: function(e) {
+    convertPostcode: async function(e) {
       if (e.key == "Enter" && this.query) {
-         axios
-          .get('https://api.postcodes.io/postcodes/' + this.query)
-          .then(response => {
-            this.geoloc.lat = response.data.result.latitude;
-            this.geoloc.lng = response.data.result.longitude;
-            this.getEvents(this.geoloc);
-          })
-          .catch(error => {
-            console.log('Error' + error)
-            this.error = error;
-          })
+        try {
+          let response = await axios.get('https://api.postcodes.io/postcodes/' + this.query)
+          this.geoloc.lat = response.data.result.latitude;
+          this.geoloc.lng = response.data.result.longitude;
+          this.getEvents(this.geoloc);
+        } catch(error) {
+          console.log('Error fetching geolocation data');
+          this.error = error;
+        }
       }
     },
-    getEvents: function(geoloc) {
-    console.log(geoloc);
-      axios
-      .get('https://www.skiddle.com/api/v1/events/search/?api_key=' + process.env.VUE_APP_API_KEY + '&latitude=' + geoloc.lat +'&longitude=' + geoloc.lng + '&radius=' + this.range + '&eventcode=FEST&order=distance&description=1')
-      .then(response => {
+    getEvents: async function(geoloc) {
+      try {
+        let response = await axios.get('https://www.skiddle.com/api/v1/events/search/?api_key=' + process.env.VUE_APP_API_KEY + '&latitude=' + geoloc.lat +'&longitude=' + geoloc.lng + '&radius=' + this.range + '&eventcode=FEST&order=distance&description=1')
         this.events = response.data.results;
-      })
-      .catch(error => {
-        console.log('Error' + error)
+      } catch(error) {
+        console.log('Error fetching data from Skiddle API');
         this.error = error;
-      })
+      }
     }
   }
 }
-
-
 </script>
 
 <style>
