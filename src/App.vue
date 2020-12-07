@@ -36,13 +36,15 @@
       </div>
       <div class="circle-1"></div>
       <div class="circle-2"></div>
-        <!-- <h3>Results</h3>
-        <div v-for="item in events" :key="item.eventname">{{ item.eventname }}</div> -->
+      <div class="results" v-if="eventsTruth">
+        <h3>Results</h3>
+        <div v-for="item in events" :key="item.eventname">{{ item.eventname }}</div>
+      </div>
     </div>
 
-    <footer>
+    <!-- <footer>
 
-    </footer>
+    </footer> -->
   </div>
 </template>
 
@@ -59,7 +61,8 @@ export default {
       error: '',
       query: '',
       range: 5,
-      dropdown: false
+      dropdown: false,
+      eventsTruth: false
     }
   },
   methods: {
@@ -80,6 +83,7 @@ export default {
       try {
         let response = await axios.get('https://www.skiddle.com/api/v1/events/search/?api_key=' + process.env.VUE_APP_API_KEY + '&latitude=' + geoloc.lat +'&longitude=' + geoloc.lng + '&radius=' + this.range + '&eventcode=FEST&order=distance&description=1')
         this.events = response.data.results;
+        this.eventsTruth = true;
       } catch(error) {
         console.log('Error fetching data from Skiddle API');
         this.error = error;
