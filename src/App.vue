@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-   <h1>Festivals Near You</h1>
+   <h1>FIND FESTIVALS NEAREST TO YOU</h1>
     <input 
           type="text" 
           placeholder="Search..."
@@ -62,5 +62,16 @@ export default {
 </script>
 
 <style>
-
+@font-face {
+  font-family: Viga;
+  src: url('./assets/fonts/Viga-Regular.ttf');
+}
+body {
+  font-family: Viga;
+}
+h1 {
+  font-size:8.5em;
+  line-height:92%;  
+  /* margin-bottom:0px; */
+}
 </style>
