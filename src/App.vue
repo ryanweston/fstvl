@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <div class="container">
-      <h1>FIND FESTIVALS NEAREST TO YOU</h1>
+      <h1>FIND 🎉 FESTIVALS NEAREST TO YOU</h1>
 
-      <div >
+      <div>
         <form class="search" @submit.prevent="convertPostcode"> 
         <input 
               type="text" 
@@ -12,22 +12,27 @@
               class="text-search"
             />
         <div class="overlay-search">
-          <input 
+          <div class="radius-search">
+            <h3>Within<br>
+              {{ range }} miles
+            </h3>
+            <span class="iconify" data-inline="false" data-icon="dashicons:arrow-down-alt2" style="font-size: 25px;"></span>
+          <!-- <input 
                 type="range"
                 min="0"
                 max="100"
                 v-model="range"
                 class="radius-search"
-                />
+                /> -->
+          </div>
           <button type="submit">
             <span class="iconify" data-inline="false" data-icon="bx:bx-search" style="font-size: 36px;"></span>
           </button>
         </div>
         </form>
-        <p>Range: {{ range }}</p>
-        </div>
-        <div class="circle-1"></div>
-        <div class="circle-2"></div>
+      </div>
+      <div class="circle-1"></div>
+      <div class="circle-2"></div>
         <!-- <h3>Results</h3>
         <div v-for="item in events" :key="item.eventname">{{ item.eventname }}</div> -->
     </div>
@@ -95,7 +100,7 @@ body {
   box-sizing: border-box;
 }
 h1 {
-  font-size:9em;
+  font-size:8em;
   line-height:81%;  
   margin-bottom:20px;
   font-weight:800;
@@ -111,7 +116,7 @@ h1 {
   border:4px solid #000000;
   outline:none;
   padding:20px;
-  font-size:1.2em;
+  font-size:1.3em;
   text-transform: uppercase;
   background-color:transparent!important;
   -webkit-appearance:none;
@@ -123,6 +128,18 @@ h1 {
   position:absolute;
   top:0px;
   right:0px;
+}
+.radius-search {
+  display:flex;
+  flex-direction: row;
+  justify-items: center;
+  align-items: center;
+  height:100%;
+  margin-right:20px;
+}
+.radius-search h3, .radius-search p {
+  /* margin-bottom:0px; */
+  line-height:100%;
 }
 button {
   outline:0;
