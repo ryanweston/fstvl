@@ -3,27 +3,33 @@
     <div class="container">
       <h1>FIND FESTIVALS NEAREST TO YOU</h1>
 
-      <div class="search">
+      <div >
+        <form class="search" @submit.prevent="convertPostcode"> 
         <input 
               type="text" 
-              placeholder="Search..."
+              placeholder="enter your postcode"
               v-model="query"
-              @keypress="convertPostcode"
               class="text-search"
             />
-        <input 
-              type="range"
-              min="0"
-              max="100"
-              v-model="range"
-              class="radius-search"
-              />
+        <div class="overlay-search">
+          <input 
+                type="range"
+                min="0"
+                max="100"
+                v-model="range"
+                class="radius-search"
+                />
+          <button type="submit">
+            <span class="iconify" data-inline="false" data-icon="bx:bx-search" style="font-size: 36px;"></span>
+          </button>
+        </div>
+        </form>
         <p>Range: {{ range }}</p>
         </div>
         <div class="circle-1"></div>
         <div class="circle-2"></div>
-        <h3>Results</h3>
-        <div v-for="item in events" :key="item.eventname">{{ item.eventname }}</div>
+        <!-- <h3>Results</h3>
+        <div v-for="item in events" :key="item.eventname">{{ item.eventname }}</div> -->
     </div>
 
     <footer>
@@ -48,8 +54,8 @@ export default {
     }
   },
   methods: {
-    convertPostcode: async function(e) {
-      if (e.key == "Enter" && this.query) {
+    convertPostcode: async function() {
+      if (this.query) {
         try {
           let response = await axios.get('https://api.postcodes.io/postcodes/' + this.query)
           this.geoloc.lat = response.data.result.latitude;
@@ -75,12 +81,12 @@ export default {
 </script>
 
 <style>
-@font-face {
+/* @font-face {
   font-family: Viga;
   src: url('./assets/fonts/Viga-Regular.ttf');
-}
+} */
 body {
-  font-family: Viga;
+  font-family: work-sans;
   margin:0px;
   overflow:hidden;
 }
@@ -89,9 +95,10 @@ body {
   box-sizing: border-box;
 }
 h1 {
-  font-size:8.5em;
-  line-height:92%;  
-  margin-bottom:0px;
+  font-size:9em;
+  line-height:81%;  
+  margin-bottom:20px;
+  font-weight:800;
 }
 .search {
   width:65%;
@@ -104,12 +111,26 @@ h1 {
   border:4px solid #000000;
   outline:none;
   padding:20px;
-  background:transparent;
+  font-size:1.2em;
+  text-transform: uppercase;
+  background-color:transparent!important;
+  -webkit-appearance:none;
 }
-.radius-search {
+.overlay-search {
+  display:flex;
+  justify-content: center;
+  height:100%;
   position:absolute;
   top:0px;
   right:0px;
+}
+button {
+  outline:0;
+  background-color:transparent;
+  border:0px;
+}
+button:hover {
+  cursor:pointer;
 }
 .circle-1, .circle-2{
   position:absolute;
@@ -122,20 +143,20 @@ h1 {
   right:0px;
   background: rgba(235, 255, 0, 0.58);
   z-index:-1;
-  transform: translate(-15%, -15%);
   -webkit-transform: translate(-15%, -15%);
   -moz-transform: translate(-15%, -15%);
   -o-transform: translate(-15%, -15%); 
+  transform: translate(-15%, -15%);
 }
 .circle-2 {
   bottom:0px;
   right:0px;
   z-index:-2;
   background: rgba(251, 156, 14, 0.58);
-  transform: translate(25%, 25%);
   -webkit-transform: translate(25%, 25%);
   -moz-transform: translate(25%, 25%);
   -o-transform: translate(25%, 25%); 
+  transform: translate(25%, 25%);
 }
 footer {
   position:absolute;
