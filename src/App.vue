@@ -16,14 +16,17 @@
             <h3>Within<br>
               {{ range }} miles
             </h3>
-            <span class="iconify" data-inline="false" data-icon="dashicons:arrow-down-alt2" style="font-size: 25px;"></span>
-          <!-- <input 
+            <button v-on:click="handleDropdown">
+              <span class="iconify" data-inline="false" data-icon="dashicons:arrow-down-alt2" style="font-size: 25px;" ></span>
+            </button>
+          <input 
+                v-if="dropdown"
                 type="range"
                 min="0"
                 max="100"
                 v-model="range"
                 class="radius-search"
-                /> -->
+                />
           </div>
           <button type="submit">
             <span class="iconify" data-inline="false" data-icon="bx:bx-search" style="font-size: 36px;"></span>
@@ -56,6 +59,7 @@ export default {
       error: '',
       query: '',
       range: 5,
+      dropdown: false
     }
   },
   methods: {
@@ -80,6 +84,10 @@ export default {
         console.log('Error fetching data from Skiddle API');
         this.error = error;
       }
+    }, 
+    handleDropdown: function() {
+      console.log("DROPDOWN:" + this.dropdown)
+      this.dropdown = !this.dropdown;
     }
   }
 }
