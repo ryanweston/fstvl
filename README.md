@@ -1,26 +1,23 @@
-# 🎉 fstvl
-Project take's user inputted UK postcodes alongside a radius(miles), converts to longitude and latitude with postcode.io, then using the Skiddle API, returns festivals that are within a radius to the location. Created as a test project to begin exploring VueJS.
+# fstvl
 
+> Find festivals near you
 
-# Project setup
-```
-npm install
-```
+## Build Setup
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+``` bash
+# install dependencies
+$ npm install # Or yarn install
 
-### Compiles and minifies for production
-```
-npm run build
-```
+# serve with hot reload at localhost:3000
+$ npm run dev
 
-### Lints and fixes files
-```
-npm run lint
+# build for production and launch server
+$ npm run build
+$ npm start
+
+# generate static project
+$ npm run generate
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
+
