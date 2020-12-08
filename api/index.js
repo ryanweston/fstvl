@@ -1,12 +1,7 @@
-// const httpProxy = require('http-proxy')
-// const proxy = httpProxy.createProxyServer()
-// const API_URL = process.env.API_URL || 'https://api.mydomain.com'
-// const express = require('express')
-// const app = express()
 import axios from 'axios';
 const express = require('express')
-const bodyParser = require('body-parser')
 const app = express();
+const bodyParser = require('body-parser')
 const API_KEY = process.env.API_SECRET
 
 

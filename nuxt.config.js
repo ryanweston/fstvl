@@ -22,8 +22,8 @@ export default {
 
   serverMiddleware: [
     {
-      path: 'api/v1',
-      handler: '~/api/v1/index.js'
+      path: '/api',
+      handler: '~/api/index.js'
     }
   ],
 
@@ -44,6 +44,8 @@ export default {
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {},
+
+  ssr: true,
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
