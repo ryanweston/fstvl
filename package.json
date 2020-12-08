@@ -1,26 +1,24 @@
 {
-  "name": "fstvl",
+  "name": "fstvlnearme",
   "version": "1.0.0",
-  "description": "Find festivals near you",
-  "author": "Ryan Weston <ryanlweston@gmail.com>",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "precommit": "npm run lint",
+    "dev": "nuxt-ts",
+    "build": "nuxt-ts build",
+    "start": "nuxt-ts start",
+    "generate": "nuxt-ts generate",
     "now-build": ""
   },
   "dependencies": {},
   "devDependencies": {
-    "@nuxtjs/axios": "^5.3.6",
-    "babel-eslint": "^10.0.1",
-    "eslint": "^4.19.1",
-    "eslint-friendly-formatter": "^4.0.1",
-    "eslint-loader": "^2.1.1",
-    "eslint-plugin-vue": "^4.0.0",
-    "nuxt": "^2.0.0"
+    "@nuxt/types": "^2.14.6",
+    "@nuxt/typescript-build": "^2.0.3",
+    "@nuxt/typescript-runtime": "^2.0.0",
+    "@nuxtjs/axios": "^5.12.2",
+    "core-js": "^3.6.5",
+    "eslint-config-prettier": "^6.12.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "nuxt": "^2.14.6",
+    "prettier": "^2.1.2"
   }
 }
