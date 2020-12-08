@@ -13,7 +13,7 @@
             />
         <div class="overlay-search">
           <div class="radius-search">
-            <h3>Within<br>
+            <h3><span>Within</span><br>
               {{ range }} miles
             </h3>
             <button v-on:click="handleDropdown">
@@ -98,10 +98,7 @@ export default {
 </script>
 
 <style>
-/* @font-face {
-  font-family: Viga;
-  src: url('./assets/fonts/Viga-Regular.ttf');
-} */
+
 body {
   font-family: work-sans;
   margin:0px;
@@ -153,6 +150,9 @@ h1 {
   /* margin-bottom:0px; */
   line-height:100%;
 }
+.radius-search span {
+  font-size:0.9em;
+}
 button {
   outline:0;
   background-color:transparent;
@@ -160,6 +160,9 @@ button {
 }
 button:hover {
   cursor:pointer;
+}
+.results h3{
+  margin-bottom:5px;
 }
 .circle-1, .circle-2{
   position:absolute;
@@ -170,7 +173,7 @@ button:hover {
 .circle-1 {
   top:0px;
   right:0px;
-  background: rgba(235, 255, 0, 0.58);
+  background: rgba(235, 255, 0, 0.28);
   z-index:-1;
   -webkit-transform: translate(-15%, -15%);
   -moz-transform: translate(-15%, -15%);
@@ -181,7 +184,7 @@ button:hover {
   bottom:0px;
   right:0px;
   z-index:-2;
-  background: rgba(251, 156, 14, 0.58);
+  background: rgba(251, 156, 14, 0.28);
   -webkit-transform: translate(25%, 25%);
   -moz-transform: translate(25%, 25%);
   -o-transform: translate(25%, 25%); 
