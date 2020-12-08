@@ -67,7 +67,7 @@ export default Vue.extend({
           let lng = response.data.result.longitude;
           this.getEvents(lat, lng);
         } catch(error) {
-          console.log('Error fetching geolocation data');
+          console.log('Error fetching geolocation');
           this.error = error;
         }
       }
@@ -80,6 +80,7 @@ export default Vue.extend({
         this.eventsTruth = true;
       } catch(error) {
           console.log('Error fetching data from Skiddle API');
+          console.log(error);
           this.error = error;
       }
     }, 
