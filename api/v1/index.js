@@ -4,13 +4,13 @@
 // const express = require('express')
 // const app = express()
 import axios from 'axios';
+const express = require('express')
 const bodyParser = require('body-parser')
-const app = require('express')()
-const config = require('../../nuxt.config')
+const app = express();
 const API_KEY = process.env.API_SECRET
 
 
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 app.all('/events', async (req, res) => {
   let { lng, lat, range } = req.body;
   console.log(lat);
