@@ -38,6 +38,9 @@
         <h3>Results</h3>
         <div v-for="item in events" :key="item.eventname">{{ item.eventname }}</div>
       </div>
+      <div class="credits">
+        <h3>A PROJECT BY <a>@RYNWSTN</a></h3>
+      </div>
   </section>
 </template>
 
@@ -97,7 +100,9 @@ body {
   overflow:hidden;
 }
 .container {
-  padding:5%;
+  width:100vw;
+  height:100vh;
+  padding:10% 5%;
   box-sizing: border-box;
 }
 h1 {
@@ -128,7 +133,7 @@ h1 {
   height:100%;
   position:absolute;
   top:0px;
-  right:0px;
+  right:20px;
 }
 .radius-search {
   display:flex;
@@ -153,6 +158,9 @@ button {
 button:hover {
   cursor:pointer;
 }
+.results {
+  margin-top:20px;
+}
 .results h3{
   margin-bottom:5px;
 }
@@ -165,7 +173,7 @@ button:hover {
 .circle-1 {
   top:0px;
   right:0px;
-  background: rgba(235, 255, 0, 0.28);
+  background: rgba(235, 255, 0, 0.45);
   z-index:-1;
   -webkit-transform: translate(-15%, -15%);
   -moz-transform: translate(-15%, -15%);
@@ -176,11 +184,17 @@ button:hover {
   bottom:0px;
   right:0px;
   z-index:-2;
-  background: rgba(251, 156, 14, 0.28);
+  background: rgba(251, 156, 14, 0.45);
   -webkit-transform: translate(25%, 25%);
   -moz-transform: translate(25%, 25%);
   -o-transform: translate(25%, 25%); 
   transform: translate(25%, 25%);
+}
+.credits {
+  font-size:0.8em;
+  position: absolute;
+  bottom:20px;
+  right:20px;
 }
 footer {
   position:absolute;
