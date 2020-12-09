@@ -12,6 +12,7 @@ export default {
       { rel: 'stylesheet', href: 'https://use.typekit.net/rvx8gvh.css' },
     ], 
     script: [
+      { src: 'https://code.iconify.design/1/1.0.6/iconify.min.js' },
       { src: 'https://code.iconify.design/1/1.0.6/iconify.min.js' }
     ]
   },

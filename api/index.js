@@ -2,12 +2,20 @@ import axios from 'axios';
 const express = require('express')
 const app = express();
 const bodyParser = require('body-parser')
+const slowDown = require("express-slow-down");
 const API_KEY = process.env.API_SECRET
 
+const speedLimiter = slowDown({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  delayAfter: 1, // allow 100 requests per 15 minutes, then...
+  delayMs: 500 // begin adding 500ms of delay per request above 100:
+});
 
 app.use(bodyParser.json());
+app.use(speedLimiter);
 
 app.all('/events', async (req, res) => {
+  
   let { lng, lat, range } = req.body;
 
   try {
