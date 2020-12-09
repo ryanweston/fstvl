@@ -44,6 +44,7 @@
 <script lang="ts">
 
 import Vue from 'vue';
+import axios from 'axios';
 
 export default Vue.extend({
   name: 'App',
@@ -61,7 +62,7 @@ export default Vue.extend({
     convertPostcode: async function() {
        if (this.query) {
         try {
-          let response = await this.$axios.get('https://api.postcodes.io/postcodes/' + this.query)
+          let response = await axios.get('https://api.postcodes.io/postcodes/' + this.query)
           let lat = response.data.result.latitude;
           let lng = response.data.result.longitude;
           this.getEvents(lat, lng);
@@ -73,11 +74,12 @@ export default Vue.extend({
     getEvents: async function(lat:number, lng:number) {
       try {
         let body = { lat: lat, lng: lng, range: this.range };
-        let response = await this.$axios.post('/api/events', body);
+        let response = await axios.post('/api/events', body);
         this.events = response.data.events.results;
         this.eventsTruth = true;
       } catch(error) {
           console.log('Error fetching data from Skiddle API');
+          console.log(error);
       }
     }, 
     handleDropdown: function() {
