@@ -1,11 +1,11 @@
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    title: 'fstvlnearme',
+    title: 'Festivals Near Me',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' }
+      { hid: 'description', name: 'description', content: 'Find festivals near you. Search by postcode. Find the closest festivals, where you are.' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -61,7 +61,7 @@ export default {
       baseURL: process.env.VERCEL_URL
     }
   },
-  
+
   ssr: true,
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
