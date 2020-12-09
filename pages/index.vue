@@ -44,7 +44,6 @@
 <script lang="ts">
 
 import Vue from 'vue';
-import axios from 'axios'
 
 export default Vue.extend({
   name: 'App',
@@ -68,20 +67,17 @@ export default Vue.extend({
           this.getEvents(lat, lng);
         } catch(error) {
           console.log('Error fetching geolocation');
-          this.error = error;
         }
       }
     },
     getEvents: async function(lat:number, lng:number) {
       try {
         let body = { lat: lat, lng: lng, range: this.range };
-        let response = await axios.post('/api/events', body);
+        let response = await this.$axios.post('/api/events', body);
         this.events = response.data.events.results;
         this.eventsTruth = true;
       } catch(error) {
           console.log('Error fetching data from Skiddle API');
-          console.log(error);
-          this.error = error;
       }
     }, 
     handleDropdown: function() {
