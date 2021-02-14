@@ -1,10 +1,10 @@
 <template>
     <div>
-        <form class="search" @submit.prevent="convertPostcode"> 
+        <form :class="['search', { 'color': this.$route.path !== '/'}]" @submit.prevent="submit"> 
             <input 
                 type="text" 
                 placeholder="enter your postcode"
-                v-model="query"
+                v-model="postcode"
                 class="text-search"
                 />
             <div class="overlay-search">
@@ -12,7 +12,7 @@
                 <h3><span>Within</span><br>
                 {{ range }} miles
                 </h3>
-                <button v-on:click="handleDropdown">
+                <button v-on:click="handleDropdown" type="button">
                 <span class="iconify" data-inline="false" data-icon="dashicons:arrow-down-alt2" style="font-size: 25px;" ></span>
                 </button>
             <input 
@@ -29,71 +29,93 @@
             </button>
             </div>
             </form>
-            <div class="results" v-if="eventsTruth">
-            <h3>Results</h3>
-            <div v-for="item in events" :key="item.eventname">{{ item.eventname }}</div>
-        </div>
-        <div class="credits">
-            <h3>A PROJECT BY <a>@RYNWSTN</a></h3>
-        </div>
     </div>
 </template>
 
 <script lang="ts">
 
 import Vue from 'vue'
-import axios from 'axios';
-
 export default Vue.extend({
   data() {
     return {
-          events: {},
-          error: '',
-          query: '',
-          range: 5,
           dropdown: false,
-          eventsTruth: false
     }
   },
-  mounted() {
-    this.submit()
-  },
-  methods: {
-    submit: function() {
-        this.$store.dispatch('search', 'cool')
-    },
-    convertPostcode: async function() {
-       if (this.query) {
-        try {
-          let response = await axios.get('https://api.postcodes.io/postcodes/' + this.query)
-          let lat = response.data.result.latitude;
-          let lng = response.data.result.longitude;
-          this.getEvents(lat, lng);
-        } catch(error) {
-          console.log('Error fetching geolocation');
-        }
-      }
-    },
-    getEvents: async function(lat: number, lng: number) {
-      try {
-        const range = this.range > 600 ? this.range = 600 : this.range
-        let body = { lat: lat, lng: lng, range: range };
-        let response = await axios.post('/api/events', body);
-        this.events = response.data.events.results;
-        console.log(this.events)
-        this.eventsTruth = true;
-      } catch(error) {
-          console.log('Error fetching data from Skiddle API');
-          console.log(error);
+  computed: {
+    range:  {
+      set(range) {
+        this.$store.commit('setSearchRange', range)
+      }, 
+      get() {
+        return this.$store.state.search.range
       }
     }, 
+    postcode: {
+      set(postcode) {
+        this.$store.commit('setSearchPostcode', postcode)
+      }, 
+      get() {
+        return this.$store.state.search.postcode
+      }
+    }
+  },
+  methods: {
+    submit: async function() {
+      console.log('SUBMIT CALLED')
+       await this.$store.dispatch('getLocation')
+       await this.$store.dispatch('getResults')
+       if (this.$store.state.results) {
+        this.$router.push('results')
+       }
+    },
     handleDropdown: function() {
       this.dropdown = !this.dropdown;
     }
-    // IMPLEMENT SECOND LAYOUT FOR RESULTS AND FESTIVALS
-
-    //IF SEARCH STATE IS EQUAL TO SEARCH PARAM
-    //DONT DISPATCH GET POSTCODE AND SEARCH WITH SAME
   }
 })
 </script>
+
+<style>
+.search {
+  width:65%;
+  height:auto;
+  position: relative;
+  box-sizing: border-box;
+}
+.color .text-search {
+  background-color:white!important;
+}
+.text-search {
+  width:100%;
+  border:4px solid #000000;
+  outline:none;
+  padding:20px;
+  font-size:1.3em;
+  text-transform: uppercase;
+  background-color:transparent;
+  -webkit-appearance:none;
+}
+.overlay-search {
+  display:flex;
+  justify-content: center;
+  height:100%;
+  position:absolute;
+  top:0px;
+  right:20px;
+}
+.radius-search {
+  display:flex;
+  flex-direction: row;
+  justify-items: center;
+  align-items: center;
+  height:100%;
+  margin-right:20px;
+}
+.radius-search h3, .radius-search p {
+  /* margin-bottom:0px; */
+  line-height:100%;
+}
+.radius-search span {
+  font-size:0.9em;
+}
+</style>

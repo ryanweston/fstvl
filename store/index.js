@@ -1,38 +1,73 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import axios from "axios";
 
 Vue.use(Vuex)
 
 export const state = () => ({
     results: [],
-    search: '',
+    location: '',
     postcode: '',
-    range: ''
+    search: {
+        postcode: '',
+        range: 10
+    },
+    currentFestival: null
   })
   
 export const mutations = {
-    setSearch(search) {
-        state.search = search
+    currentFest(state, festival) {
+        console.log(festival)
+        state.currentFestival = festival
     },
-    setRange(range) {
-        state.range = range
+    setSearchRange(state, range) {
+        state.search.range = range
     },
-    setPostcode(postcode) {
-        state.postcode = postcode
+    setSearchPostcode(state, query) {
+        state.search.postcode = query
     },
-    setResults(results) {
+    setLocation(state, location) {
+        state.location = location
+    },
+    setResults(state, results) {
         state.results = results
     },
 }
 
 export const actions = {
-    getPostcode({ commit },cool) {
-        console.log(cool)
+    async getLocation({ commit, state }) {
+        if (state.search.range && state.search.postcode) {
+            try {
+              let response = await axios.get('https://api.postcodes.io/postcodes/' + state.search.postcode)
+              const lat = response.data.result.latitude;
+              const lng = response.data.result.longitude;
+              await commit('setLocation', { lat: lat, lng: lng })
+            } catch(error) {
+                console.log(error)
+              console.log('Error fetching geolocation');
+            }
+        }
     },
-    getResults({ commit, state },cool) {
-        //IF STATE SEARCH IS EQUAL TO SEARCH PARAM
-        //DONT DISPATCH GET POSTCODE AND SEARCH WITH 
-        if (state.postcode === state.search)
-        console.log(cool)
+    async getResults({ commit, state }) {
+        try {
+            const range = state.search.range > 600 ? 600 : state.search.range
+            let body = { lat: state.location.lat, lng: state.location.lng, range: range};
+            let response = await axios.post('/api/events', body);
+            console.log(range)
+            await commit('setResults', response.data.events.results)
+          } catch(error) {
+              console.log('Error fetching data from Skiddle API');
+              console.log(error);
+          }
+    },
+    async getEvent({ commit }, id) {
+        try {
+            const body = { id: id }
+            let response = await axios.post('/api/festival', body);
+            await commit('currentFest', response.data.events.results)
+          } catch(error) {
+              console.log('Error fetching data from Skiddle API');
+              console.log(error);
+          }
     }
 }

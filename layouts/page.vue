@@ -1,12 +1,12 @@
 <template>
 <div>
-  <div class="container">
+  <div class="contain">
     <Nuxt />
   </div>
   <div class="circles">
-      <div class="circle-1"></div>
-      <div class="circle-2"></div>
-      <div class="credits">
+    <div class="circle-1"></div>
+    <div class="circle-2"></div>
+     <div class="credits">
       <h3>A PROJECT BY <a>@RYNWSTN</a></h3>
     </div>
   </div>
@@ -14,16 +14,26 @@
 </template>
 
 <style>
-html {
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
+body {
+  font-family: work-sans;
+  margin:0px;
+  overflow-x:hidden;
 }
 
+h1 {
+  font-size:8.7em;
+  line-height:81%;  
+  margin-bottom:20px;
+  font-weight:800;
+}
+button {
+  outline:0;
+  background-color:transparent;
+  border:0px;
+}
+button:hover {
+  cursor:pointer;
+}
 *,
 *::before,
 *::after {
@@ -31,16 +41,16 @@ html {
   margin: 0;
 }
 
-.container {
+.contain {
   width:100vw;
   height:100vh;
-  padding:10% 5%;
+  padding:3% 3%;
   box-sizing: border-box;
 }
 .circles {
   width:100vw;
   height:100vh;
-  position:absolute;
+  position:fixed;
   top:0px;
   left:0px;
   box-sizing: border-box;
@@ -67,6 +77,14 @@ html {
   -o-transform: translate(25%, 25%); 
   transform: translate(25%, 25%);
 }
+
+.circle-1, .circle-2{
+  position:absolute;
+  width: 718px;
+  height: 718px;
+  border-radius:50%;
+}
+
 .credits {
   font-size:0.8em;
   position: absolute;
