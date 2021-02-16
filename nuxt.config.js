@@ -10,10 +10,11 @@ export default {
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'stylesheet', href: 'https://use.typekit.net/rvx8gvh.css' },
+      { rel: 'stylesheet', href: 'https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.css' },
     ], 
     script: [
+      { src: 'https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js' },
       { src: 'https://code.iconify.design/1/1.0.6/iconify.min.js' },
-      { src: 'https://code.iconify.design/1/1.0.6/iconify.min.js' }
     ]
   },
 

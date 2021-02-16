@@ -4,9 +4,10 @@
             <Search />
         </div>
         <div class="results">
-            <h2 class="item" v-for="item in results" @click="handleRoute(item)" v-bind:key="item.id">
-                    {{ item.eventname }}
-            </h2>
+            <div class="item" v-for="item in results" @click="handleRoute(item)" v-bind:key="item.id">
+            <p> {{ item.date}} </p>
+            <h2> {{ item.eventname }} </h2>
+            </div>
         </div>
     </div>
 </template>
@@ -33,6 +34,7 @@ export default class Results extends Vue {
            this.$router.push({ path: '/'})
            console.log(this.$route)
        }
+       console.log(this.results)
    }
 
    async handleRoute(festival: any) {
@@ -49,8 +51,8 @@ export default class Results extends Vue {
 <style>
 .results {
   margin-top:130px;
-  padding-right:5%;
-  padding-left:5%;
+  padding-right:15%;
+  padding-left:0%;
 }
 .results h2{
   font-size:6em;
