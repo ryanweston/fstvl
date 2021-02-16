@@ -10,7 +10,7 @@ export const state = () => ({
     postcode: '',
     search: {
         postcode: '',
-        range: 10
+        range: 20
     },
     currentFestival: null
   })
