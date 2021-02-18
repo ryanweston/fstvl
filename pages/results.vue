@@ -55,7 +55,7 @@ export default class Results extends Vue {
   padding-left:0%;
 }
 .results h2{
-  font-size:6em;
+  font-size:7em;
   text-transform: uppercase;
   margin-bottom:0px;
   font-weight:900;
