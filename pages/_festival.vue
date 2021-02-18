@@ -14,13 +14,12 @@
             <div v-if="currentFest.genres" class="genres">
                 <div :key="genre.genreId" v-for="genre in currentFest.genres">
                     <h3> {{ genre.name }}</h3>
-                    <!-- <p>{{ person.name }}</p> -->
                 </div>
             </div>
         </section>
         <section>
             <div v-if="currentFest.artists" class="artists">
-                <h3>Artists</h3>
+                <!-- <h3>Artists</h3> -->
                 <div :key="person.artistid" v-for="person in currentFest.artists">
                     <img :src="person.image">
                     <!-- <p>{{ person.name }}</p> -->
@@ -28,8 +27,8 @@
             </div>
         </section>
         <section>
-             <h3>Location</h3>
-            <BaseMap :location="venue"/>
+             <!-- <h3>Location</h3> -->
+            <BaseMap :location="currentFest.venue"/>
         </section>
     </div>
 </template>
@@ -70,9 +69,11 @@ export default class Results extends Vue {
 
 <style scoped>
 section {
-    margin-top:50px;
+    margin-top:55px;
 }
-
+.artists {
+    width:92%;
+}
 .artists > div, .genres > div {
     display: inline-block;
 }
@@ -80,7 +81,7 @@ section {
     border-top:4px solid black;
     border-bottom:4px solid black;
     padding: 10px 0px;
-    width:85%;
+    width:90%;
 }
 .genres h3 {
     margin-bottom:0px;
@@ -90,7 +91,7 @@ section {
     padding-right:20px;
 }
 .festival {
-    max-width:80%;
+    max-width:90%;
     padding-bottom:10%;
 }
 .festival .desc {
@@ -104,11 +105,11 @@ section h3 {
     text-transform: uppercase;
 }
 .festival button {
-    margin-bottom:60px;
+    margin-bottom:80px;
     z-index:4;
 }
 .festival h1 {
-    font-size:8em;
+    font-size:9em;
     text-transform: uppercase;
 }
 .festival img { 
