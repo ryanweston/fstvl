@@ -90,6 +90,7 @@ export default Vue.extend({
   border:4px solid #000000;
   outline:none;
   padding:20px;
+  border-radius:40px;
   font-size:1.3em;
   text-transform: uppercase;
   background-color:transparent;

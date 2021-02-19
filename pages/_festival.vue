@@ -1,14 +1,13 @@
 <template>
     <div v-if="currentFest" class="festival">
-        <button @click.prevent="handleRouteBack()">BACK</button>
+        <button @click.prevent="handleRouteBack()">BACK TO RESULTS</button>
         <h1>{{ currentFest.eventname }}</h1>
-        <br/>
         <!-- <section> -->
             <!-- <h3>Information</h3> -->
             <!-- <p class="date">Date: {{currentFest.date}}</p>
             <br> -->
 
-            <p class="desc">{{ currentFest.description }}</p>
+            <!-- <p class="desc">{{ currentFest.description }}</p> -->
         <!-- </section> -->
         <section>
             <div v-if="currentFest.genres" class="genres">
@@ -78,17 +77,20 @@ section {
     display: inline-block;
 }
 .genres {
-    border-top:4px solid black;
-    border-bottom:4px solid black;
-    padding: 10px 0px;
+    background-color:black;
+    color:white;
+    /* border-top:4px solid black;
+    border-bottom:4px solid black; */
+    padding: 20px 30px;
     width:90%;
 }
 .genres h3 {
     margin-bottom:0px;
     font-weight:900;
+    font-size:2em;
 }
 .genres > div { 
-    padding-right:20px;
+    padding-right:30px;
 }
 .festival {
     max-width:90%;
@@ -107,6 +109,10 @@ section h3 {
 .festival button {
     margin-bottom:80px;
     z-index:4;
+    /* padding:20px; */
+    border-radius:40px;
+    /* border:4px solid black; */
+    font-weight:900;
 }
 .festival h1 {
     font-size:9em;
