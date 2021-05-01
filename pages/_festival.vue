@@ -2,19 +2,27 @@
     <div v-if="currentFest" class="festival">
         <button class="back" @click.prevent="handleRouteBack()">BACK TO RESULTS</button>
         <div class="page">
-            
-            <h1>{{ currentFest.eventname }}</h1>
+            <div class="title">
+                <h1>{{ currentFest.eventname }}</h1>
+            </div>
             <div v-if="currentFest.genres" class="genres">
+                 <!-- <p class="date">Date: {{currentFest.date}}</p> -->
                 <p class="genre" :key="genre.genreId" v-for="genre in currentFest.genres"> 
-                    {{ genre.name }}
+                    <template v-if="currentFest.genres.length > 1">
+                        {{ genre.name }}
+                    </template>
+                    <template v-else>
+                       JUST STRAIGHT UP {{ genre.name }}
+                    </template>
                 </p>
-                <!-- <button class="genre button">
+                <button class="genre button">
                     BUY A TICKET
-                </button> -->
+                </button>
             </div>
            
             <section>
                 <div class="subtitle">
+                    <div class="partial-divider"></div>
                     <h3>Artists</h3>
                     <div class="divider"></div>
                 </div>
@@ -29,14 +37,16 @@
             </section>
              <section>
                 <div class="subtitle">
+                    <div class="partial-divider"></div>
                     <h3>Description</h3>
                     <div class="divider"></div>
                 </div>
                 <p class="desc">{{ currentFest.description }}</p>
-                    <!-- <p class="date">Date: {{currentFest.date}}</p> -->
+                   
             </section>
             <section>
                 <div class="subtitle">
+                    <div class="partial-divider"></div>
                     <h3>Location</h3>
                     <div class="divider"></div>
                 </div>
@@ -124,6 +134,13 @@ section {
     display:inline-block;
 }
 
+.subtitle .partial-divider {
+    height:4px;
+    border-top:4px solid black;
+    width:5%;
+    margin-right:2em;
+}
+
 .subtitle .divider {
     margin-left:2em;
     display:flex;
@@ -134,12 +151,15 @@ section {
 
 .artists {
     position: relative;
-   
 }
 .artists .row {
+    border-radius: 40px;
     white-space: nowrap;
-    overflow: scroll;
+    overflow: scroll; 
+    padding:40px 40px;
+    box-shadow: inset -9px 0px 15px 23px rgba(0, 0, 0, 0.05);
 }
+
 .hover {
     border-radius: 40px;
     width:100%;
@@ -159,7 +179,8 @@ section {
     color:white;
 }
 .genres {
-    margin-bottom:4em;
+    margin-top:2em;
+    margin-bottom:2.5em;
 }
 .genres h3 {
     margin-bottom:0px;
@@ -173,11 +194,11 @@ section {
     padding-bottom:10%;
 }
 .festival .desc {
-    /* margin-top:1em; */
+    text-transform: uppercase;
     font-size: 1.6em;
 }
 section h3 {
-    font-size: 2em;
+    font-size: 1.8em;
     text-transform: uppercase;
 }
 .festival .back {
@@ -186,8 +207,11 @@ section h3 {
     border-radius:40px;
     font-weight:900;
 }
+.title {
+    width:90vw;
+    font-size:1vw;
+}
 .festival h1 {
-    font-size:8em;
     text-transform: uppercase;
     /* margin-bottom:0.5em; */
 }
@@ -200,6 +224,6 @@ section h3 {
 
 .festival img:hover {
     cursor: pointer;
-    border:4px solid black;
+    filter: brightness(30%);
 }
 </style>
