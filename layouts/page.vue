@@ -7,7 +7,6 @@
     <div class="circle-1"></div>
     <div class="circle-2"></div>
      <div class="credits">
-      <h3>A PROJECT BY <a>@RYNWSTN</a></h3>
     </div>
   </div>
 </div>

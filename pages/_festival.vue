@@ -1,34 +1,48 @@
 <template>
     <div v-if="currentFest" class="festival">
-        <button @click.prevent="handleRouteBack()">BACK TO RESULTS</button>
-        <h1>{{ currentFest.eventname }}</h1>
-        <!-- <section> -->
-            <!-- <h3>Information</h3> -->
-            <!-- <p class="date">Date: {{currentFest.date}}</p>
-            <br> -->
-
-            <!-- <p class="desc">{{ currentFest.description }}</p> -->
-        <!-- </section> -->
-        <section>
+        <button class="back" @click.prevent="handleRouteBack()">BACK TO RESULTS</button>
+        <div class="page">
+            
+            <h1>{{ currentFest.eventname }}</h1>
             <div v-if="currentFest.genres" class="genres">
-                <div :key="genre.genreId" v-for="genre in currentFest.genres">
-                    <h3> {{ genre.name }}</h3>
-                </div>
+                <p class="genre" :key="genre.genreId" v-for="genre in currentFest.genres"> 
+                    {{ genre.name }}
+                </p>
+                <!-- <button class="genre button">
+                    BUY A TICKET
+                </button> -->
             </div>
-        </section>
-        <section>
-            <div v-if="currentFest.artists" class="artists">
-                <!-- <h3>Artists</h3> -->
-                <div :key="person.artistid" v-for="person in currentFest.artists">
-                    <img :src="person.image">
-                    <!-- <p>{{ person.name }}</p> -->
+           
+            <section>
+                <div class="subtitle">
+                    <h3>Artists</h3>
+                    <div class="divider"></div>
                 </div>
-            </div>
-        </section>
-        <section>
-             <!-- <h3>Location</h3> -->
-            <BaseMap :location="currentFest.venue"/>
-        </section>
+                <div @mouseleave="hoverArtist(false)" @click.stop="hoverArtist(false)" class="artists">
+                    <div  v-if="currentFest.artists" class="row">
+                        <img @click.stop="hoverArtist(true, person)" :key="person.artistid" v-for="person in currentFest.artists" :src="person.image">
+                    </div>
+                    <div v-if="hoverState" class="hover"> 
+                        <h3>{{ artistName.name }}</h3>
+                    </div>
+                </div>
+            </section>
+             <section>
+                <div class="subtitle">
+                    <h3>Description</h3>
+                    <div class="divider"></div>
+                </div>
+                <p class="desc">{{ currentFest.description }}</p>
+                    <!-- <p class="date">Date: {{currentFest.date}}</p> -->
+            </section>
+            <section>
+                <div class="subtitle">
+                    <h3>Location</h3>
+                    <div class="divider"></div>
+                </div>
+                <BaseMap :location="currentFest.venue"/>
+            </section>
+        </div>
     </div>
 </template>
 
@@ -46,9 +60,14 @@ import BaseMap from '@/components/map.vue'
 export default class Results extends Vue {
     @State('currentFestival') currentFest!: any
     @Action('getEvent') getEvent!: any
-// search for state based from festival/{param}
-// if non exists, get event based from param where param === eventId
-// todo: cache so param could == event name
+    
+    // search for state based from festival/{param}
+    // if non exists, get event based from param where param === eventId
+    // todo: cache so param could == event name
+
+    artistName: object | undefined
+    hoverState = false
+
     mounted () {
         if (this.currentFest) {
             console.log(this.currentFest)
@@ -60,6 +79,12 @@ export default class Results extends Vue {
         }
     }
 
+    hoverArtist(hover: boolean, name?: object, ) {
+        console.log('HOVER' + name + hover)
+        if (name) this.artistName = name
+        this.hoverState = hover
+    }
+
     handleRouteBack () {
         this.$router.push({ path: '/results'})
     }
@@ -67,61 +92,114 @@ export default class Results extends Vue {
 </script>
 
 <style scoped>
-section {
-    margin-top:55px;
+.genre { 
+    margin-right:1em;
+    padding:15px;
+    border:3px solid black;
+    border-radius:40px;
+    text-transform: uppercase;
+    font-weight:700;
+    display:inline-block;
 }
-.artists {
-    width:92%;
-}
-.artists > div, .genres > div {
-    display: inline-block;
-}
-.genres {
+.button {
     background-color:black;
     color:white;
-    /* border-top:4px solid black;
-    border-bottom:4px solid black; */
-    padding: 20px 30px;
-    width:90%;
+}
+.page {
+   max-width:90%;
+}
+section {
+    margin-top:50px;
+    padding: 20px 0px;
+}
+.subtitle {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    width:100%;
+    margin-bottom:3em;
+}
+
+.subtitle > * {
+    display:inline-block;
+}
+
+.subtitle .divider {
+    margin-left:2em;
+    display:flex;
+    flex:1;
+    height:4px;
+    border-top:4px solid black;
+}
+
+.artists {
+    position: relative;
+   
+}
+.artists .row {
+    white-space: nowrap;
+    overflow: scroll;
+}
+.hover {
+    border-radius: 40px;
+    width:100%;
+    height:100%;
+    position:absolute;
+    background-color:rgba(0, 0, 0, 0.75);
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    top:0px;
+    left:0px;
+}
+.artists > img, .genres > div {
+    display: inline-block;
+}
+.artists h3 {
+    color:white;
+}
+.genres {
+    margin-bottom:4em;
 }
 .genres h3 {
     margin-bottom:0px;
     font-weight:900;
-    font-size:2em;
+    font-size:1.5em;
 }
 .genres > div { 
     padding-right:30px;
 }
 .festival {
-    max-width:90%;
     padding-bottom:10%;
 }
 .festival .desc {
+    /* margin-top:1em; */
     font-size: 1.6em;
-    max-width:90%;
 }
-
 section h3 {
-    font-size: 3em;
-    margin-bottom: 35px;
+    font-size: 2em;
     text-transform: uppercase;
 }
-.festival button {
+.festival .back {
     margin-bottom:80px;
     z-index:4;
-    /* padding:20px; */
     border-radius:40px;
-    /* border:4px solid black; */
     font-weight:900;
 }
 .festival h1 {
-    font-size:9em;
+    font-size:8em;
     text-transform: uppercase;
+    /* margin-bottom:0.5em; */
 }
 .festival img { 
-    margin-right:10px;
+    margin-right:15px;
     border-radius:50%;
-    width:100px;
-    height:100px;
+    width:200px;
+    height:200px;
+}
+
+.festival img:hover {
+    cursor: pointer;
+    border:4px solid black;
 }
 </style>

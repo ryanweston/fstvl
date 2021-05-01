@@ -5,8 +5,16 @@
         </div>
         <div class="results">
             <div class="item" v-for="item in results" @click="handleRoute(item)" v-bind:key="item.id">
-            <p> {{ item.date}} </p>
-            <h2> {{ item.eventname }} </h2>
+                <div class="details">
+                    <!-- <div :key="genre.genreId" v-for="genre in item.genres">
+                        <h3> {{ genre.name }}</h3>
+                    </div> -->
+                    <p class="genre" :key="genre.genreId" v-for="genre in item.genres">
+                        {{ genre.name }}
+                    </p>
+                    <!-- <p> {{ item.date}} </p> -->
+                </div>
+                <h2> {{ item.eventname }} </h2>
             </div>
         </div>
     </div>
@@ -48,9 +56,25 @@ export default class Results extends Vue {
  }
 </script>
 
-<style>
+<style >
+.details { 
+    margin-bottom:1em;
+}
+.item .details > * { 
+    display:inline-block;
+}
+.genre { 
+    margin-right:1em;
+    /* background-color:black; */
+    padding:15px;
+    border:3px solid black;
+    border-radius:40px;
+    text-transform: uppercase;
+    /* color:white; */
+    font-weight:700;
+}
 .results {
-  margin-top:130px;
+  margin-top:150px;
   padding-right:15%;
   padding-left:0%;
 }
@@ -80,5 +104,8 @@ export default class Results extends Vue {
     left:3%;
     width:800px;
     z-index:4;
+}
+.item {
+    margin-top:30px;
 }
 </style>
