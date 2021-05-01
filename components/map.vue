@@ -42,8 +42,7 @@ export default {
 
 <style scoped>
 .basemap {
-  width: 90%;
   min-height: 400px;
-  border:4px solid black;
+  /* border:4px solid black; */
 }
 </style>
